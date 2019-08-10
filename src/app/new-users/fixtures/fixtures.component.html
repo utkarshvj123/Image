@@ -1,0 +1,30 @@
+<app-header></app-header>
+<div class="container">
+  <div class="card" style="margin: 40px">
+
+
+  <div class="row" align="left" style="margin: 40px">
+    Profile
+  </div>
+
+
+    <div class="row" style="margin: 20px">
+      <div class="col-4">
+        <img src="{{image}}"
+             height="200" width="200" >
+<div class="row" style="margin: 10px">
+  <button class="btn btn-outline-primary btn-sm" style="margin: 10px;text-align: left">Edit photo</button>
+  <button class="btn btn-outline-primary btn-sm" style="margin: 10px;text-align: left">Edit profile</button>
+</div>
+      </div>
+      <div class="col-8" >
+I'm {{firstName}}{{ lastName}} and I'm above {{age}} years,and you can send me emails to <a href="{{email}}">{{email}}</a>. I live in the state of {{state}}.<p *ngFor="let play of tags">i play {{play}} </p> .and please send me news letter.please reach out to me on my phone number {{phone}}.
+        <div class="row" style="margin: 20px">
+          <button class="btn btn-success">I agree</button>
+        </div>
+      </div>
+
+    </div>
+</div>
+</div>
+<app-footer></app-footer>

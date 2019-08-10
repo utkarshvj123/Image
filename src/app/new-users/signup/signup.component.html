@@ -1,0 +1,235 @@
+<app-header></app-header>
+
+
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Create template modal</button>
+
+<ng-template #template>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" (keydown.enter)="$event.preventDefault()">
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Register</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-3">
+                    <div>
+                        <img [src]="imgURL" height="100" width="100" *ngIf="imgURL">
+                    </div>
+                    <div>
+                        <img src="https://www.clinicaloptions.com/-/media/cco/placeholders/foundation/enumerations/large_persona.png?rev=636c152a032b48ff8bed172478cf2dc4&h=500&w=500&la=en&hash=A00D0833FEC12183FBD5B053565458C3917E48EB"
+                             height="100" width="100" *ngIf="!imgURL">
+                    </div>
+                    <div>
+                        <input type="file" (change)="onFileSelected($event)">
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="text" class="form-control" formControlName="firstname" placeholder="First name"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control" placeholder="Last name" formControlName="lastname"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Email" formControlName="email"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Phone" formControlName="phone"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1" style="padding-top: 22px;">
+                            Age:
+                        </div>
+                        <div class="col-10">
+                            <ng5-slider [(value)]="value" [options]="options" formControlName="age"></ng5-slider>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <select class="form-control" type="select" formControlName="country"
+                                    (ngModelChange)="gettingCountryName($event)">
+                                <label>Hello</label>
+                                <option value="" disabled>Choose country</option>
+                                <option *ngFor="let country of countryArray" [ngValue]="country">
+                                    {{country.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <select class="form-control" type="select" formControlName="state">
+                                <option value="" disabled>Choose state</option>
+                                <option *ngFor="let state of state" [ngValue]="state.region">
+                                    {{state.region}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Address" formControlName="address"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <input type="text" class="form-control" formControlName="tags" placeholder="Tag"
+                                   [(ngModel)]="addTaskValue" (keyup.enter)="gettingTags($event)"
+                                   aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2" style="
+ width: auto;
+  border: 1px solid black;margin:5px;height:auto;background-color: grey;padding: auto;align:center"
+                             *ngFor="let val of newTagAfterPush">
+                            <span><p style="color: white;width: auto">{{val}}<i class="fas fa-times"
+                                                                                style="color: yellow"
+                                                                                (click)="removeValue(val)"></i></p></span>
+                        </div>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" formControlName="subscriberValue" type="checkbox" value=""
+                               id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            Subscribe to newsletter
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="closeModal()">Close</button>
+            <button type="button" class="btn btn-primary" (click)="closeModal()" [disabled]="!myForm.valid"
+                    type="submit" (keydown.enter)="$event.preventDefault()">Submit
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+
+<!--Working formneed to copy paste-->
+<!--<div class="form-style-5" style="    margin-bottom: 54px;-->
+<!--    margin-top: 60px;">-->
+
+<!--  <fieldset>-->
+<!--    <legend><span class="number">1</span> Sign up</legend>-->
+<!--    <div class="form-group">-->
+<!--      <input type="text" name="field2" placeholder="Your Email" formControlName="email"-->
+<!--             [ngClass]="{ 'is-invalid': submitted && myForm.controls.email.errors }"-->
+<!--             style="    margin-bottom: 16px;">-->
+<!--      <div *ngIf="myForm.controls['email'].invalid && (myForm.controls['email'].dirty || myForm.controls['email'].touched)"-->
+<!--           class="alert alert-danger">-->
+<!--        <div *ngIf="myForm.controls['email'].errors.required">-->
+<!--          Email is required.-->
+<!--        </div>-->
+<!--        <div *ngIf="myForm.controls['email'].errors.pattern">Email must be a valid email address-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <input type="text" name="field2" placeholder="Name" formControlName="name">-->
+<!--    <div *ngIf="myForm.controls['name'].invalid && (myForm.controls['name'].dirty || myForm.controls['name'].touched)"-->
+<!--         class="alert alert-danger" style="    margin-bottom: 16px;">-->
+<!--      <div *ngIf="myForm.controls['name'].errors.required">-->
+<!--        Name is required.-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <input type="number" name="field2" placeholder="Phone" formControlName="phone" [maxLength]="10">-->
+<!--    <div *ngIf="myForm.controls['phone'].invalid && (myForm.controls['phone'].dirty || myForm.controls['phone'].touched)"-->
+<!--         class="alert alert-danger" style="    margin-bottom: 16px;">-->
+<!--      <div *ngIf="myForm.controls['phone'].errors.required">-->
+<!--        Phone is required.-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <input type="date" name="field1" placeholder="Date" formControlName="date" style="height: 41px;">-->
+<!--    <div *ngIf="myForm.controls['date'].invalid && (myForm.controls['date'].dirty || myForm.controls['date'].touched)"-->
+<!--         class="alert alert-danger" style="    margin-bottom: 16px;">-->
+<!--      <div *ngIf="myForm.controls['date'].errors.required">-->
+<!--        Date is required.-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="row">-->
+<!--      <select type="select" formControlName="countryname" (ngModelChange)="gettingCountryNameArray()">-->
+<!--        <option *ngFor="let country of countryArray" value={{country.name}}>-->
+<!--          {{country.name}}-->
+<!--        </option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <input type="password" name="field1" placeholder="Password" formControlName="password">-->
+<!--    <input type="password" name="field1" placeholder="Confirm password"-->
+<!--           formControlName="confirm_password" style="margin-bottom: 10px;">-->
+<!--    <div style="text-align: left;color: red;font-size: 15px" class="alert alert-danger"-->
+<!--         *ngIf="notMatched">-->
+<!--      <p>Password doesn't match.</p>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;          <div style="text-align: center">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <button class="btn btn-success" [disabled]="!myForm.valid" type="submit" value="Apply">Submit</button>&ndash;&gt;-->
+<!--    &lt;!&ndash;          </div>&ndash;&gt;-->
+<!--  </fieldset>-->
+
+<!--</div>-->
+
+
+<!--<div class="form-style-5" style="    margin-bottom: 54px;-->
+<!--    margin-top: 60px;">-->
+<!--  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">-->
+<!--    <fieldset>-->
+<!--      <legend><span class="number">1</span> Sign up</legend>-->
+<!--      <div class="form-group">-->
+<!--      <input type="text" name="field2" placeholder="Your Email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && myForm.controls.email.errors }" style="    margin-bottom: 16px;">-->
+<!--        <div *ngIf="myForm.controls['email'].invalid && (myForm.controls['email'].dirty || myForm.controls['email'].touched)" class="alert alert-danger">-->
+<!--          <div *ngIf="myForm.controls['email'].errors.required">-->
+<!--            Email is required.-->
+<!--          </div>-->
+<!--          <div *ngIf="myForm.controls['email'].errors.pattern">Email must be a valid email address</div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <input type="text" name="field2" placeholder="Name" formControlName="name">-->
+<!--      <div *ngIf="myForm.controls['name'].invalid && (myForm.controls['name'].dirty || myForm.controls['name'].touched)" class="alert alert-danger" style="    margin-bottom: 16px;">-->
+<!--        <div *ngIf="myForm.controls['name'].errors.required">-->
+<!--          Name is required.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <input type="number" name="field2" placeholder="Phone" formControlName="phone" [maxLength]="10">-->
+<!--      <div *ngIf="myForm.controls['phone'].invalid && (myForm.controls['phone'].dirty || myForm.controls['phone'].touched)" class="alert alert-danger" style="    margin-bottom: 16px;">-->
+<!--        <div *ngIf="myForm.controls['phone'].errors.required">-->
+<!--          Phone is required.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <input type="date" name="field1" placeholder="Date" formControlName="date" style="height: 41px;">-->
+<!--      <div *ngIf="myForm.controls['date'].invalid && (myForm.controls['date'].dirty || myForm.controls['date'].touched)" class="alert alert-danger" style="    margin-bottom: 16px;">-->
+<!--        <div *ngIf="myForm.controls['date'].errors.required">-->
+<!--          Date is required.-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <input type="password" name="field1" placeholder="Password" formControlName="password">-->
+<!--      <input type="password" name="field1" placeholder="Confirm password" formControlName="confirm_password" style="margin-bottom: 10px;">-->
+<!--      <div style="text-align: left;color: red;font-size: 15px" class="alert alert-danger" *ngIf="notMatched">-->
+<!--        <p >Password doesn't match.</p>-->
+<!--      </div>-->
+<!--      <div style="text-align: center">-->
+<!--      <button class="btn btn-success" [disabled]="!myForm.valid" type="submit" value="Apply">Submit</button>-->
+<!--      </div>-->
+<!--    </fieldset>-->
+<!--  </form>-->
+<!--</div>-->
+
+<app-footer></app-footer>
